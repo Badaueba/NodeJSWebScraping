@@ -1,7 +1,7 @@
 const puppeter = require("puppeteer");
-const {insert, get} = require("./contoller");
+const Project = require("../models/project");
 
-const start = async () => {
+module.exports.start = async () => {
     const browser = await puppeter.launch({headless: true, devtools: true});
     const page = await browser.newPage();
     await page.goto("http://www.legislador.com.br/LegisladorWEB.ASP?WCI=ProjetoTramite&ID=20", {waitUntil: "domcontentloaded"});
@@ -34,11 +34,10 @@ const start = async () => {
         const  project = await scrapEachNewPageProject(currentPage);
         allProjects.push(project);
     }
-    await page.waitFor(2000);
+    await page.waitFor(1000);
     console.log(allProjects)
-    insert(allProjects);
-    await page.waitFor(2000);
-    get({});
+    saveProjecs(allProjects);
+    await page.waitFor(1000);
     browser.close();
 }
 
@@ -85,4 +84,14 @@ const scrapEachNewPageProject = async (page) => {
     });
 }
 
-module.exports.start = start;
+const saveProjecs = async (projects) => {
+    try {
+        const saved = await Project.insertMany(projects);
+    }
+    catch (err) {
+        console.log(err)
+        throw new Error(err);
+    }
+}
+
+
