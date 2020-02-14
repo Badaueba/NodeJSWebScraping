@@ -24,7 +24,7 @@ mongoose.connect(mongooseURI, {
     useUnifiedTopology: true
 })
 .then(() => {
-    scraper.start();
+    // scraper.start();
     app.listen(port, () => console.log("listening to", port));
 })
 .catch(err => console.log(err));
