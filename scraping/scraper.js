@@ -16,7 +16,6 @@ module.exports.start = async () => {
     await page.waitFor(1500);
 
     const cards = await page.$$("div.card > .card-body");
-    console.log(cards.length);
 
     for(let index in cards) {
         console.log(index);
@@ -35,9 +34,7 @@ module.exports.start = async () => {
         allProjects.push(project);
     }
     await page.waitFor(1000);
-    console.log(allProjects)
-    saveProjecs(allProjects);
-    await page.waitFor(1000);
+    await saveProjecs(allProjects);
     browser.close();
 }
 
@@ -48,7 +45,6 @@ const scrapEachNewPageProject = async (page) => {
 
         var infoCard = document.querySelectorAll(".card-body")[0];
         var infoRow = infoCard.querySelector(".col-lg > .row").children;
-        console.log(infoRow);
         var situacao = infoRow[1].innerText;
         var assunto = infoRow[7].innerText;
         var autor = infoRow[9].innerText.replace("\n", " ");
@@ -79,7 +75,6 @@ const scrapEachNewPageProject = async (page) => {
             ementa: ementa,
             tramite: tramite
         }
-        console.log(project);
         return project;
     });
 }
@@ -87,6 +82,7 @@ const scrapEachNewPageProject = async (page) => {
 const saveProjecs = async (projects) => {
     try {
         const saved = await Project.insertMany(projects);
+        return saved;
     }
     catch (err) {
         console.log(err)
