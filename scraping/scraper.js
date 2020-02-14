@@ -13,7 +13,7 @@ module.exports.start = async () => {
         form.submit();
         return input;
     }, form);
-    await page.waitFor(1500);
+    await page.waitFor(2000);
 
     const cards = await page.$$("div.card > .card-body");
 
@@ -23,7 +23,7 @@ module.exports.start = async () => {
         const detailsBtn = await page.evaluateHandle(card => card.querySelector(".btn.btn-outline-secondary"), card);
         await detailsBtn.click();
     }
-    await page.waitFor(cards.length * 500);
+    await page.waitFor(cards.length * 1000);
     const allOpenedPages = await browser.pages();
     const justNewPages = allOpenedPages.slice(2, allOpenedPages.length);
     let allProjects = [];
@@ -35,6 +35,7 @@ module.exports.start = async () => {
     }
     await page.waitFor(1000);
     await saveProjecs(allProjects);
+    await page.waitFor(1000);
     browser.close();
 }
 
