@@ -1,0 +1,19 @@
+{
+  "name": "test-ibureau",
+  "version": "1.0.0",
+  "description": "webscraping public data to mongodb",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "alan",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.8.13",
+    "puppeteer": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
